@@ -2,7 +2,7 @@ using System;
 using System.Data;
 using System.Data.SqlClient;
 
-namespace FlowerShopMVP.Model.Repository
+namespace FlowerShopMVVM.Model.Repository
 {
     public class Repository
     {
@@ -10,14 +10,14 @@ namespace FlowerShopMVP.Model.Repository
 
         public Repository()
         {
-            string s = "Data Source=DESKTOP-A8HU6PM\\SQLEXPRESS;Initial Catalog=FlowerShop";
+            string s = "Data Source=localhost\\SQLEXPRESS;Initial Catalog=FlowerShop";
             s += ";Integrated Security=True;";
             this.connection = new SqlConnection(s);
         }
 
         public Repository(string databaseName)
         {
-            string s = "Data Source=DESKTOP-A8HU6PM\\SQLEXPRESS;Initial Catalog=";
+            string s = "Data Source=localhost\\SQLEXPRESS;Initial Catalog=";
             s += databaseName + ";Integrated Security=True;";
             this.connection = new SqlConnection(s);
         }

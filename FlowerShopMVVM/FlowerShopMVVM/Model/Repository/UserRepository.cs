@@ -1,6 +1,6 @@
-namespace FlowerShopMVP.Model.Repository
+namespace FlowerShopMVVM.Model.Repository
 {
-    using FlowerShopMVP.Model;
+    using FlowerShopMVVM.Model;
     using System;
     using System.Collections.Generic;
     using System.Data;

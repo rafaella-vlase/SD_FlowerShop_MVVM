@@ -9,11 +9,16 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Folder Include="resources\" />
     <Folder Include="ViewModel\CommandsAdministrator\" />
     <Folder Include="ViewModel\CommandsEmployee\" />
     <Folder Include="ViewModel\CommandsLogin\" />
     <Folder Include="ViewModel\CommandsManager\" />
     <Folder Include="View\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="System.Data.SqlClient" Version="4.8.6" />
   </ItemGroup>
 
 </Project>

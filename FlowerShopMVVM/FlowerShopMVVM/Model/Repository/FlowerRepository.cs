@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Diagnostics;
 
-namespace FlowerShopMVP.Model.Repository
+namespace FlowerShopMVVM.Model.Repository
 {
     public class FlowerRepository
     {
