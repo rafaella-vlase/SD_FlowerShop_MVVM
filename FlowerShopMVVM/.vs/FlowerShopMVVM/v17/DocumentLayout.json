@@ -1,30 +1,22 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "E:\\Facultate\\PS2\\FlowerShopMVVM\\",
+  "WorkspaceRootPath": "C:\\Users\\ella\\Documents\\GitHub\\Ella_FlowerMVVM\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{BCAC1B8F-820C-453E-9F0F-80199C6ECDB5}|FlowerShopMVVM\\FlowerShopMVVM.csproj|e:\\facultate\\ps2\\flowershopmvvm\\flowershopmvvm\\flowershopmvvm.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
-      "RelativeMoniker": "D:0:0:{BCAC1B8F-820C-453E-9F0F-80199C6ECDB5}|FlowerShopMVVM\\FlowerShopMVVM.csproj|solutionrelative:flowershopmvvm\\flowershopmvvm.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+      "AbsoluteMoniker": "D:0:0:{BCAC1B8F-820C-453E-9F0F-80199C6ECDB5}|FlowerShopMVVM\\FlowerShopMVVM.csproj|c:\\users\\ella\\documents\\github\\ella_flowermvvm\\flowershopmvvm\\view\\vadministrator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{BCAC1B8F-820C-453E-9F0F-80199C6ECDB5}|FlowerShopMVVM\\FlowerShopMVVM.csproj|solutionrelative:flowershopmvvm\\view\\vadministrator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{BCAC1B8F-820C-453E-9F0F-80199C6ECDB5}|FlowerShopMVVM\\FlowerShopMVVM.csproj|e:\\facultate\\ps2\\flowershopmvvm\\flowershopmvvm\\viewmodel\\vmmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{BCAC1B8F-820C-453E-9F0F-80199C6ECDB5}|FlowerShopMVVM\\FlowerShopMVVM.csproj|solutionrelative:flowershopmvvm\\viewmodel\\vmmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{BCAC1B8F-820C-453E-9F0F-80199C6ECDB5}|FlowerShopMVVM\\FlowerShopMVVM.csproj|c:\\users\\ella\\documents\\github\\ella_flowermvvm\\flowershopmvvm\\view\\vemployee.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{BCAC1B8F-820C-453E-9F0F-80199C6ECDB5}|FlowerShopMVVM\\FlowerShopMVVM.csproj|solutionrelative:flowershopmvvm\\view\\vemployee.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{BCAC1B8F-820C-453E-9F0F-80199C6ECDB5}|FlowerShopMVVM\\FlowerShopMVVM.csproj|E:\\Facultate\\PS2\\FlowerShopMVVM\\flowershopmvvm\\viewmodel\\vmlogin.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{BCAC1B8F-820C-453E-9F0F-80199C6ECDB5}|FlowerShopMVVM\\FlowerShopMVVM.csproj|solutionrelative:flowershopmvvm\\viewmodel\\vmlogin.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{BCAC1B8F-820C-453E-9F0F-80199C6ECDB5}|FlowerShopMVVM\\FlowerShopMVVM.csproj|c:\\users\\ella\\documents\\github\\ella_flowermvvm\\flowershopmvvm\\view\\vmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{BCAC1B8F-820C-453E-9F0F-80199C6ECDB5}|FlowerShopMVVM\\FlowerShopMVVM.csproj|solutionrelative:flowershopmvvm\\view\\vmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{BCAC1B8F-820C-453E-9F0F-80199C6ECDB5}|FlowerShopMVVM\\FlowerShopMVVM.csproj|E:\\Facultate\\PS2\\FlowerShopMVVM\\flowershopmvvm\\viewmodel\\vmemployee.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{BCAC1B8F-820C-453E-9F0F-80199C6ECDB5}|FlowerShopMVVM\\FlowerShopMVVM.csproj|solutionrelative:flowershopmvvm\\viewmodel\\vmemployee.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{BCAC1B8F-820C-453E-9F0F-80199C6ECDB5}|FlowerShopMVVM\\FlowerShopMVVM.csproj|E:\\Facultate\\PS2\\FlowerShopMVVM\\flowershopmvvm\\viewmodel\\vmadministrator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{BCAC1B8F-820C-453E-9F0F-80199C6ECDB5}|FlowerShopMVVM\\FlowerShopMVVM.csproj|solutionrelative:flowershopmvvm\\viewmodel\\vmadministrator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{BCAC1B8F-820C-453E-9F0F-80199C6ECDB5}|FlowerShopMVVM\\FlowerShopMVVM.csproj|E:\\Facultate\\PS2\\FlowerShopMVVM\\flowershopmvvm\\viewmodel\\icommands.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{BCAC1B8F-820C-453E-9F0F-80199C6ECDB5}|FlowerShopMVVM\\FlowerShopMVVM.csproj|solutionrelative:flowershopmvvm\\viewmodel\\icommands.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{BCAC1B8F-820C-453E-9F0F-80199C6ECDB5}|FlowerShopMVVM\\FlowerShopMVVM.csproj|c:\\users\\ella\\documents\\github\\ella_flowermvvm\\flowershopmvvm\\view\\vlogin.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{BCAC1B8F-820C-453E-9F0F-80199C6ECDB5}|FlowerShopMVVM\\FlowerShopMVVM.csproj|solutionrelative:flowershopmvvm\\view\\vlogin.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     }
   ],
   "DocumentGroupContainers": [
@@ -33,82 +25,56 @@
       "VerticalTabListWidth": 256,
       "DocumentGroups": [
         {
-          "DockedWidth": 200,
+          "DockedWidth": 215,
           "SelectedChildIndex": 0,
           "Children": [
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "FlowerShopMVVM",
-              "DocumentMoniker": "E:\\Facultate\\PS2\\FlowerShopMVVM\\FlowerShopMVVM\\FlowerShopMVVM.csproj",
-              "RelativeDocumentMoniker": "FlowerShopMVVM\\FlowerShopMVVM.csproj",
-              "ToolTip": "E:\\Facultate\\PS2\\FlowerShopMVVM\\FlowerShopMVVM\\FlowerShopMVVM.csproj",
-              "RelativeToolTip": "FlowerShopMVVM\\FlowerShopMVVM.csproj",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAABcAAAAKAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2024-04-19T03:35:08.544Z",
-              "EditorCaption": ""
+              "Title": "VAdministrator.cs [Design]",
+              "DocumentMoniker": "C:\\Users\\ella\\Documents\\GitHub\\Ella_FlowerMVVM\\FlowerShopMVVM\\View\\VAdministrator.cs",
+              "RelativeDocumentMoniker": "FlowerShopMVVM\\View\\VAdministrator.cs",
+              "ToolTip": "C:\\Users\\ella\\Documents\\GitHub\\Ella_FlowerMVVM\\FlowerShopMVVM\\View\\VAdministrator.cs [Design]",
+              "RelativeToolTip": "FlowerShopMVVM\\View\\VAdministrator.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-25T02:38:30.646Z",
+              "EditorCaption": " [Design]"
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "VMManager.cs",
-              "DocumentMoniker": "E:\\Facultate\\PS2\\FlowerShopMVVM\\FlowerShopMVVM\\ViewModel\\VMManager.cs",
-              "RelativeDocumentMoniker": "FlowerShopMVVM\\ViewModel\\VMManager.cs",
-              "ToolTip": "E:\\Facultate\\PS2\\FlowerShopMVVM\\FlowerShopMVVM\\ViewModel\\VMManager.cs",
-              "RelativeToolTip": "FlowerShopMVVM\\ViewModel\\VMManager.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Title": "VEmployee.cs [Design]",
+              "DocumentMoniker": "C:\\Users\\ella\\Documents\\GitHub\\Ella_FlowerMVVM\\FlowerShopMVVM\\View\\VEmployee.cs",
+              "RelativeDocumentMoniker": "FlowerShopMVVM\\View\\VEmployee.cs",
+              "ToolTip": "C:\\Users\\ella\\Documents\\GitHub\\Ella_FlowerMVVM\\FlowerShopMVVM\\View\\VEmployee.cs [Design]",
+              "RelativeToolTip": "FlowerShopMVVM\\View\\VEmployee.cs [Design]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-14T12:09:24.027Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "VMLogin.cs",
-              "DocumentMoniker": "E:\\Facultate\\PS2\\FlowerShopMVVM\\FlowerShopMVVM\\ViewModel\\VMLogin.cs",
-              "RelativeDocumentMoniker": "FlowerShopMVVM\\ViewModel\\VMLogin.cs",
-              "ToolTip": "E:\\Facultate\\PS2\\FlowerShopMVVM\\FlowerShopMVVM\\ViewModel\\VMLogin.cs",
-              "RelativeToolTip": "FlowerShopMVVM\\ViewModel\\VMLogin.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-14T12:07:37.116Z"
+              "WhenOpened": "2024-04-25T02:37:40.316Z",
+              "EditorCaption": " [Design]"
             },
             {
               "$type": "Document",
               "DocumentIndex": 3,
-              "Title": "VMEmployee.cs",
-              "DocumentMoniker": "E:\\Facultate\\PS2\\FlowerShopMVVM\\FlowerShopMVVM\\ViewModel\\VMEmployee.cs",
-              "RelativeDocumentMoniker": "FlowerShopMVVM\\ViewModel\\VMEmployee.cs",
-              "ToolTip": "E:\\Facultate\\PS2\\FlowerShopMVVM\\FlowerShopMVVM\\ViewModel\\VMEmployee.cs",
-              "RelativeToolTip": "FlowerShopMVVM\\ViewModel\\VMEmployee.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Title": "VLogin.cs [Design]",
+              "DocumentMoniker": "C:\\Users\\ella\\Documents\\GitHub\\Ella_FlowerMVVM\\FlowerShopMVVM\\View\\VLogin.cs",
+              "RelativeDocumentMoniker": "FlowerShopMVVM\\View\\VLogin.cs",
+              "ToolTip": "C:\\Users\\ella\\Documents\\GitHub\\Ella_FlowerMVVM\\FlowerShopMVVM\\View\\VLogin.cs [Design]",
+              "RelativeToolTip": "FlowerShopMVVM\\View\\VLogin.cs [Design]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-14T12:07:26.023Z"
+              "WhenOpened": "2024-04-25T02:36:08.968Z",
+              "EditorCaption": " [Design]"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "VMAdministrator.cs",
-              "DocumentMoniker": "E:\\Facultate\\PS2\\FlowerShopMVVM\\FlowerShopMVVM\\ViewModel\\VMAdministrator.cs",
-              "RelativeDocumentMoniker": "FlowerShopMVVM\\ViewModel\\VMAdministrator.cs",
-              "ToolTip": "E:\\Facultate\\PS2\\FlowerShopMVVM\\FlowerShopMVVM\\ViewModel\\VMAdministrator.cs",
-              "RelativeToolTip": "FlowerShopMVVM\\ViewModel\\VMAdministrator.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "DocumentIndex": 2,
+              "Title": "VManager.cs [Design]",
+              "DocumentMoniker": "C:\\Users\\ella\\Documents\\GitHub\\Ella_FlowerMVVM\\FlowerShopMVVM\\View\\VManager.cs",
+              "RelativeDocumentMoniker": "FlowerShopMVVM\\View\\VManager.cs",
+              "ToolTip": "C:\\Users\\ella\\Documents\\GitHub\\Ella_FlowerMVVM\\FlowerShopMVVM\\View\\VManager.cs [Design]",
+              "RelativeToolTip": "FlowerShopMVVM\\View\\VManager.cs [Design]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-14T12:07:01.572Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "ICommands.cs",
-              "DocumentMoniker": "E:\\Facultate\\PS2\\FlowerShopMVVM\\FlowerShopMVVM\\ViewModel\\ICommands.cs",
-              "RelativeDocumentMoniker": "FlowerShopMVVM\\ViewModel\\ICommands.cs",
-              "ToolTip": "E:\\Facultate\\PS2\\FlowerShopMVVM\\FlowerShopMVVM\\ViewModel\\ICommands.cs",
-              "RelativeToolTip": "FlowerShopMVVM\\ViewModel\\ICommands.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-14T12:06:31.014Z"
+              "WhenOpened": "2024-04-25T02:33:55.891Z",
+              "EditorCaption": " [Design]"
             }
           ]
         }

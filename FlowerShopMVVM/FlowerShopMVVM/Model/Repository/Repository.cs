@@ -10,7 +10,7 @@ namespace FlowerShopMVVM.Model.Repository
 
         public Repository()
         {
-            string s = "Data Source=localhost\\SQLEXPRESS;Initial Catalog=FlowerShop";
+            string s = "Data Source=localhost\\SQLEXPRESS;Initial Catalog=FlowerShopMVVM";
             s += ";Integrated Security=True;";
             this.connection = new SqlConnection(s);
         }

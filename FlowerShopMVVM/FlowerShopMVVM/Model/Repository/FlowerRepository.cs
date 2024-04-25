@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Diagnostics;
+using static System.ComponentModel.Design.ObjectSelectorEditor;
 
 namespace FlowerShopMVVM.Model.Repository
 {
@@ -20,35 +21,72 @@ namespace FlowerShopMVVM.Model.Repository
 
         public bool AddFlower(Flower flower)
         {
-            string commandSQL = "insert into Flowers values(";
-            commandSQL += flower.FloristID;
-            commandSQL += ", '" + flower.Type + "', '" + flower.Color;
-            commandSQL += "', " + flower.Price + ", " + flower.Stock;
-            commandSQL += ", '" + flower.IsAvailable + "')";
-            return this.repository.CommandSQL(commandSQL);
+            bool resultFlowers, resultFlowersShop;
+
+            string commandSQL = "insert into Flowers values('";
+            commandSQL += flower.FlowerName + "', '" + flower.Color;
+            commandSQL += "')";
+            resultFlowers = this.repository.CommandSQL(commandSQL);
+
+            string commandSQL2 = "insert into FlowersShop values(";
+            commandSQL2 += flower.ShopID;
+            commandSQL2 += ", " + flower.Price + ", " + flower.Stock + ")";
+            resultFlowersShop = this.repository.CommandSQL(commandSQL2);
+
+            return (resultFlowers && resultFlowersShop);
         }
 
-        public bool DeleteFlower(uint id)
+        public bool DeleteFlower(uint flowerID, uint shopID)
         {
-            string commandSQL = "delete from Flowers where flowerID = '" + id + "'";
-            return this.repository.CommandSQL(commandSQL);
+            bool resultFlowers, resultFlowersShop;
+            string commandSQL = "delete from FlowersShop where shopID = " + shopID + " and flowerID = " + flowerID;
+            resultFlowersShop = this.repository.CommandSQL(commandSQL);
+
+            string command2SQL = "delete from Flowers where flowerID = " + flowerID + ";";
+            resultFlowers = this.repository.CommandSQL(command2SQL);
+
+            return (resultFlowers && resultFlowersShop);
         }
 
         public bool UpdateFlower(Flower flower)
         {
-            string commandSQL = "update Flowers set floristID = ";
-            commandSQL += flower.FloristID + ", flowerName = '";
-            commandSQL += flower.Type + "', color = '" + flower.Color;
-            commandSQL += "', price = " + flower.Price;
-            commandSQL += ", stock = " + flower.Stock;
-            commandSQL += ", available = '" + flower.IsAvailable;
-            commandSQL += "' where flowerID = '" + flower.FlowerID + "'";
-            return this.repository.CommandSQL (commandSQL);
+            bool resultFlowers, resultFlowersShop;
+            string commandSQL = "update Flowers set flowerName = '";
+            commandSQL += flower.FlowerName + "', color = '" + flower.Color;
+            commandSQL += "' where flowerID = " + flower.FlowerID;
+            resultFlowers = this.repository.CommandSQL(commandSQL);
+
+
+            string commandSQL2 = "update FlowersShop set price = ";
+            commandSQL2 += flower.Price;
+            commandSQL2 += ", stock = " + flower.Stock;
+            commandSQL2 += " where shopID = " + flower.ShopID + " and flowerID = " + flower.FlowerID;
+            resultFlowersShop = this.repository.CommandSQL(commandSQL2);
+
+            return (resultFlowers && resultFlowersShop);
         }
 
         public DataTable FlowerTable()
         {
-            string selectSQL = "Select * from Flowers order by flowerID";
+            string selectSQL = "SELECT F.flowerID, F.flowerName, F.color, FS.price, FS.stock, S.shopID\n";
+            selectSQL += "FROM Flowers AS F\n";
+            selectSQL += "JOIN FlowerShopMVVM.dbo.FlowersShop AS FS ON F.flowerID = FS.flowerID\n";
+            selectSQL += "JOIN FlowerShopMVVM.dbo.Shops AS S ON FS.shopID = S.shopID\n";
+            DataTable flowerTable = this.repository.GetTable(selectSQL);
+            if (flowerTable == null || flowerTable.Rows.Count == 0)
+            {
+                return null;
+            }
+            return flowerTable;
+        }
+        public DataTable FlowerTableEmployee(uint shopID)
+        {
+            string selectSQL = "SELECT F.flowerID, F.flowerName, F.color, FS.price, FS.stock\n";
+            selectSQL += "FROM Flowers AS F\n";
+            selectSQL += "JOIN FlowerShopMVVM.dbo.FlowersShop AS FS ON F.flowerID = FS.flowerID\n";
+            selectSQL += "JOIN FlowerShopMVVM.dbo.Shops AS S ON FS.shopID = S.shopID\n";
+            selectSQL += "WHERE S.shopID = " + shopID + ";";
+            //Debug.WriteLine(selectSQL);
             DataTable flowerTable = this.repository.GetTable(selectSQL);
             if (flowerTable == null || flowerTable.Rows.Count == 0)
             {
@@ -57,20 +95,9 @@ namespace FlowerShopMVVM.Model.Repository
             return flowerTable;
         }
 
-        public DataTable FlowerTableEmployee(uint floristID)
+        public List<Flower> FlowerListEmployee(uint shopID)
         {
-            string selectSQL = "Select * from Flowers where floristID = " + floristID + " order by flowerID";
-            DataTable flowerTable = this.repository.GetTable(selectSQL);
-            if (flowerTable == null || flowerTable.Rows.Count == 0)
-            {
-                return null;
-            }
-            return flowerTable;
-        }
-
-        public List<Flower> FlowerListEmployee(uint floristID)
-        {
-            DataTable flowerTable = this.FlowerTableEmployee(floristID);
+            DataTable flowerTable = this.FlowerTableEmployee(shopID);
             if (flowerTable == null)
                 return null;
             List<Flower> list = new List<Flower>();
@@ -96,11 +123,208 @@ namespace FlowerShopMVVM.Model.Repository
             return list;
         }
 
-        public List<Flower> FlowerList_ColorPrice()
+        public List<Flower> FlowerList_ColorPrice(uint shopID)
         {
 
-            string selectSQL = "select * from [Flowers] order by [color], [price]";
+            if (shopID <= 0)
+            {
+                string selectSQL = "SELECT F.flowerID, F.flowerName, F.color, FS.price, FS.stock, S.shopID\n";
+                selectSQL += "FROM Flowers AS F\n";
+                selectSQL += "JOIN FlowerShopMVVM.dbo.FlowersShop AS FS ON F.flowerID = FS.flowerID\n";
+                selectSQL += "JOIN FlowerShopMVVM.dbo.Shops AS S ON FS.shopID = S.shopID\n";
+                selectSQL += "ORDER BY F.color, FS.price" + ";";
 
+
+                DataTable flowerTable = this.repository.GetTable(selectSQL);
+                if (flowerTable == null || flowerTable.Rows.Count == 0)
+                {
+                    return null;
+                }
+                List<Flower> list = new List<Flower>();
+                foreach (DataRow dr in flowerTable.Rows)
+                {
+                    Flower flower = this.convertToFlower(dr);
+                    list.Add(flower);
+                }
+                return list;
+
+            }
+            else
+            {
+
+                string selectSQL = "SELECT F.flowerID, F.flowerName, F.color, FS.price, FS.stock\n";
+                selectSQL += "FROM Flowers AS F\n";
+                selectSQL += "JOIN FlowerShopMVVM.dbo.FlowersShop AS FS ON F.flowerID = FS.flowerID\n";
+                selectSQL += "JOIN FlowerShopMVVM.dbo.Shops AS S ON FS.shopID = S.shopID\n";
+                selectSQL += "WHERE S.shopID = " + shopID;
+                selectSQL += "\nORDER BY F.color, FS.price" + ";";
+
+
+                DataTable flowerTable = this.repository.GetTable(selectSQL);
+                if (flowerTable == null || flowerTable.Rows.Count == 0)
+                {
+                    return null;
+                }
+                List<Flower> list = new List<Flower>();
+                foreach (DataRow dr in flowerTable.Rows)
+                {
+                    Flower flower = this.convertToFlowerEmployee(dr);
+                    list.Add(flower);
+                }
+                return list;
+            }
+        }
+
+        public List<Flower> FlowerList_Availability(uint shopID)
+        {
+
+            if (shopID <= 0)
+            {
+                string selectSQL = "SELECT F.flowerID, F.flowerName, F.color, FS.price, FS.stock, S.shopID\n";
+                selectSQL += "FROM Flowers AS F\n";
+                selectSQL += "JOIN FlowerShopMVVM.dbo.FlowersShop AS FS ON F.flowerID = FS.flowerID\n";
+                selectSQL += "JOIN FlowerShopMVVM.dbo.Shops AS S ON FS.shopID = S.shopID\n";
+                selectSQL += "WHERE FS.stock > 0" + ";";
+
+                DataTable flowerTable = this.repository.GetTable(selectSQL);
+                if (flowerTable == null || flowerTable.Rows.Count == 0)
+                {
+                    return null;
+                }
+                List<Flower> list = new List<Flower>();
+                foreach (DataRow dr in flowerTable.Rows)
+                {
+                    Flower flower = this.convertToFlower(dr);
+                    list.Add(flower);
+                }
+                return list;
+            }
+            else
+            {
+                string selectSQL = "SELECT F.flowerID, F.flowerName, F.color, FS.price, FS.stock\n";
+                selectSQL += "FROM Flowers AS F\n";
+                selectSQL += "JOIN FlowerShopMVVM.dbo.FlowersShop AS FS ON F.flowerID = FS.flowerID\n";
+                selectSQL += "JOIN FlowerShopMVVM.dbo.Shops AS S ON FS.shopID = S.shopID\n";
+                selectSQL += "WHERE FS.stock > 0" + " AND S.shopID = " + shopID + ";";
+
+                DataTable flowerTable = this.repository.GetTable(selectSQL);
+                if (flowerTable == null || flowerTable.Rows.Count == 0)
+                {
+                    return null;
+                }
+                List<Flower> list = new List<Flower>();
+                foreach (DataRow dr in flowerTable.Rows)
+                {
+                    Flower flower = this.convertToFlowerEmployee(dr);
+                    list.Add(flower);
+                }
+                return list;
+            }
+        }
+
+
+        public List<Flower> FlowerList_Price(string priceString, uint shopID)
+        {
+
+            if (shopID <= 0)
+            {
+                float price = (float)Convert.ToDouble(priceString);
+                string selectSQL = "SELECT F.flowerID, F.flowerName, F.color, FS.price, FS.stock, S.shopID\n";
+                selectSQL += "FROM Flowers AS F\n";
+                selectSQL += "JOIN FlowerShopMVVM.dbo.FlowersShop AS FS ON F.flowerID = FS.flowerID\n";
+                selectSQL += "JOIN FlowerShopMVVM.dbo.Shops AS S ON FS.shopID = S.shopID\n";
+                selectSQL += "WHERE FS.price = " + price + ";";
+
+                DataTable flowerTable = this.repository.GetTable(selectSQL);
+                if (flowerTable == null || flowerTable.Rows.Count == 0)
+                {
+                    return null;
+                }
+                List<Flower> list = new List<Flower>();
+                foreach (DataRow dr in flowerTable.Rows)
+                {
+                    Flower flower = this.convertToFlower(dr);
+                    list.Add(flower);
+                }
+                return list;
+            } 
+            else
+            {
+                float price = (float)Convert.ToDouble(priceString);
+                string selectSQL = "SELECT F.flowerID, F.flowerName, F.color, FS.price, FS.stock\n";
+                selectSQL += "FROM Flowers AS F\n";
+                selectSQL += "JOIN FlowerShopMVVM.dbo.FlowersShop AS FS ON F.flowerID = FS.flowerID\n";
+                selectSQL += "JOIN FlowerShopMVVM.dbo.Shops AS S ON FS.shopID = S.shopID\n";
+                selectSQL += "WHERE FS.price = " + price + " AND FS.shopID = " + shopID + ";";
+
+                DataTable flowerTable = this.repository.GetTable(selectSQL);
+                if (flowerTable == null || flowerTable.Rows.Count == 0)
+                {
+                    return null;
+                }
+                List<Flower> list = new List<Flower>();
+                foreach (DataRow dr in flowerTable.Rows)
+                {
+                    Flower flower = this.convertToFlowerEmployee(dr);
+                    list.Add(flower);
+                }
+                return list;
+            }
+        }
+
+        public List<Flower> FlowerList_Color(string color, uint shopID)
+        {
+            if (shopID <= 0)
+            {
+                string selectSQL = "SELECT F.flowerID, F.flowerName, F.color, FS.price, FS.stock, S.shopID\n";
+                selectSQL += "FROM Flowers AS F\n";
+                selectSQL += "JOIN FlowerShopMVVM.dbo.FlowersShop AS FS ON F.flowerID = FS.flowerID\n";
+                selectSQL += "JOIN FlowerShopMVVM.dbo.Shops AS S ON FS.shopID = S.shopID\n";
+                selectSQL += "WHERE F.color = '" + color + "';";
+
+                DataTable flowerTable = this.repository.GetTable(selectSQL);
+                if (flowerTable == null || flowerTable.Rows.Count == 0)
+                {
+                    return null;
+                }
+                List<Flower> list = new List<Flower>();
+                foreach (DataRow dr in flowerTable.Rows)
+                {
+                    Flower flower = this.convertToFlower(dr);
+                    list.Add(flower);
+                }
+                return list;
+            }
+            else
+            {
+                string selectSQL = "SELECT F.flowerID, F.flowerName, F.color, FS.price, FS.stock\n";
+                selectSQL += "FROM Flowers AS F\n";
+                selectSQL += "JOIN FlowerShopMVVM.dbo.FlowersShop AS FS ON F.flowerID = FS.flowerID\n";
+                selectSQL += "JOIN FlowerShopMVVM.dbo.Shops AS S ON FS.shopID = S.shopID\n";
+                selectSQL += "WHERE F.color = '" + color + "' AND FS.shopID = " + shopID + ";";
+
+                DataTable flowerTable = this.repository.GetTable(selectSQL);
+                if (flowerTable == null || flowerTable.Rows.Count == 0)
+                {
+                    return null;
+                }
+                List<Flower> list = new List<Flower>();
+                foreach (DataRow dr in flowerTable.Rows)
+                {
+                    Flower flower = this.convertToFlowerEmployee(dr);
+                    list.Add(flower);
+                }
+                return list;
+            }
+        }
+
+        public List<Flower> FlowerList_FlowerShop(uint shopID)
+        {
+            string selectSQL = "SELECT F.flowerID, F.flowerName, F.color, FS.price, FS.stock, S.shopID\n";
+            selectSQL += "FROM Flowers AS F\n";
+            selectSQL += "JOIN FlowerShopMVVM.dbo.FlowersShop AS FS ON F.flowerID = FS.flowerID\n";
+            selectSQL += "JOIN FlowerShopMVVM.dbo.Shops AS S ON FS.shopID = S.shopID\n";
+            selectSQL += "WHERE S.shopID = " + shopID + ";";
 
             DataTable flowerTable = this.repository.GetTable(selectSQL);
             if (flowerTable == null || flowerTable.Rows.Count == 0)
@@ -116,189 +340,78 @@ namespace FlowerShopMVVM.Model.Repository
             return list;
         }
 
-        public List<Flower> FlowerList_Availability(string available)
+        public List<Flower> FlowerList_Stock(string stockString, uint shopID)
         {
-            string selectSQL = "select * from Flowers where available = '" + available + "'";
 
-            DataTable flowerTable = this.repository.GetTable(selectSQL);
-            if(flowerTable == null || flowerTable.Rows.Count == 0)
+            if (shopID <= 0)
             {
-                return null;
+                int stock = Convert.ToInt32(stockString);
+                string selectSQL = "SELECT F.flowerID, F.flowerName, F.color, FS.price, FS.stock, S.shopID\n";
+                selectSQL += "FROM Flowers AS F\n";
+                selectSQL += "JOIN FlowerShopMVVM.dbo.FlowersShop AS FS ON F.flowerID = FS.flowerID\n";
+                selectSQL += "JOIN FlowerShopMVVM.dbo.Shops AS S ON FS.shopID = S.shopID\n";
+                selectSQL += "WHERE FS.stock = " + stock + ";";
+
+                DataTable flowerTable = this.repository.GetTable(selectSQL);
+                if (flowerTable == null || flowerTable.Rows.Count == 0)
+                {
+                    return null;
+                }
+                List<Flower> list = new List<Flower>();
+                foreach (DataRow dr in flowerTable.Rows)
+                {
+                    Flower flower = this.convertToFlower(dr);
+                    list.Add(flower);
+                }
+                return list;
             }
-            List<Flower> list = new List<Flower>();
-            foreach(DataRow dr in flowerTable.Rows)
+            else
             {
-                Flower flower = this.convertToFlower(dr);
-                list.Add(flower);
+                int stock = Convert.ToInt32(stockString);
+                string selectSQL = "SELECT F.flowerID, F.flowerName, F.color, FS.price, FS.stock\n";
+                selectSQL += "FROM Flowers AS F\n";
+                selectSQL += "JOIN FlowerShopMVVM.dbo.FlowersShop AS FS ON F.flowerID = FS.flowerID\n";
+                selectSQL += "JOIN FlowerShopMVVM.dbo.Shops AS S ON FS.shopID = S.shopID\n";
+                selectSQL += "WHERE FS.stock = " + stock + " AND FS.shopID = " + shopID + ";";
+
+                DataTable flowerTable = this.repository.GetTable(selectSQL);
+                if (flowerTable == null || flowerTable.Rows.Count == 0)
+                {
+                    return null;
+                }
+                List<Flower> list = new List<Flower>();
+                foreach (DataRow dr in flowerTable.Rows)
+                {
+                    Flower flower = this.convertToFlowerEmployee(dr);
+                    list.Add(flower);
+                }
+                return list;
             }
-            return list;
         }
 
-        public List<Flower> FlowerList_AvailabilityEmployee(string available, uint floristID)
+        private Flower convertToFlowerEmployee(DataRow dataRow)
         {
-            string selectSQL = "select * from Flowers where available = '" + available + "' and floristID = " + floristID;
+            int fid = (int)dataRow["flowerID"];
+            int stock = (int)dataRow["stock"];
+            float price = (float)Convert.ToDouble(dataRow["price"]);
 
-            DataTable flowerTable = this.repository.GetTable(selectSQL);
-            if (flowerTable == null || flowerTable.Rows.Count == 0)
-            {
-                return null;
-            }
-            List<Flower> list = new List<Flower>();
-            foreach (DataRow dr in flowerTable.Rows)
-            {
-                Flower flower = this.convertToFlower(dr);
-                list.Add(flower);
-            }
-            return list;
-        }
-
-        public List<Flower> FlowerList_Price(string priceString)
-        {
-            float price = (float)Convert.ToDouble(priceString);
-            string selectSQL = "select * from Flowers where price = '" + price + "'";
-
-            DataTable flowerTable = this.repository.GetTable(selectSQL);
-            if (flowerTable == null || flowerTable.Rows.Count == 0)
-            {
-                return null;
-            }
-            List<Flower> list = new List<Flower>();
-            foreach (DataRow dr in flowerTable.Rows)
-            {
-                Flower flower = this.convertToFlower(dr);
-                list.Add(flower);
-            }
-            return list;
-        }
-
-        public List<Flower> FlowerList_PriceEmployee(string priceString, uint floristID)
-        {
-            float price = (float)Convert.ToDouble(priceString);
-            string selectSQL = "select * from Flowers where price = '" + price + "' and floristID = " + floristID;
-
-            DataTable flowerTable = this.repository.GetTable(selectSQL);
-            if (flowerTable == null || flowerTable.Rows.Count == 0)
-            {
-                return null;
-            }
-            List<Flower> list = new List<Flower>();
-            foreach (DataRow dr in flowerTable.Rows)
-            {
-                Flower flower = this.convertToFlower(dr);
-                list.Add(flower);
-            }
-            return list;
-        }
-
-        public List<Flower> FlowerList_Color(string color)
-        {
-            string selectSQL = "select * from Flowers where color = '" + color + "'";
-
-            DataTable flowerTable = this.repository.GetTable(selectSQL);
-            if (flowerTable == null || flowerTable.Rows.Count == 0)
-            {
-                return null;
-            }
-            List<Flower> list = new List<Flower>();
-            foreach (DataRow dr in flowerTable.Rows)
-            {
-                Flower flower = this.convertToFlower(dr);
-                list.Add(flower);
-            }
-            return list;
-        }
-
-        public List<Flower> FlowerList_ColorEmployee(string color, uint floristID)
-        {
-            string selectSQL = "select * from Flowers where color = '" + color + "' and floristID = " + floristID;
-
-            DataTable flowerTable = this.repository.GetTable(selectSQL);
-            if (flowerTable == null || flowerTable.Rows.Count == 0)
-            {
-                return null;
-            }
-            List<Flower> list = new List<Flower>();
-            foreach (DataRow dr in flowerTable.Rows)
-            {
-                Flower flower = this.convertToFlower(dr);
-                list.Add(flower);
-            }
-            return list;
-        }
-
-        public List<Flower> FlowerList_Stock(string stockString)
-        {
-
-            int stock = Convert.ToInt32(stockString);
-            string selectSQL = "select * from Flowers where stock = '" + stock + "'";
-
-            DataTable flowerTable = this.repository.GetTable(selectSQL);
-            if (flowerTable == null || flowerTable.Rows.Count == 0)
-            {
-                return null;
-            }
-            List<Flower> list = new List<Flower>();
-            foreach (DataRow dr in flowerTable.Rows)
-            {
-                Flower flower = this.convertToFlower(dr);
-                list.Add(flower);
-            }
-            return list;
-        }
-
-
-        public List<Flower> FlowerList_StockEmployee(string stockString, uint floristID)
-        {
-
-            int stock = Convert.ToInt32(stockString);
-            string selectSQL = "select * from Flowers where stock = '" + stock + "' and floristID = " + floristID;
-
-            DataTable flowerTable = this.repository.GetTable(selectSQL);
-            if (flowerTable == null || flowerTable.Rows.Count == 0)
-            {
-                return null;
-            }
-            List<Flower> list = new List<Flower>();
-            foreach (DataRow dr in flowerTable.Rows)
-            {
-                Flower flower = this.convertToFlower(dr);
-                list.Add(flower);
-            }
-            return list;
+            return new Flower((uint)fid, 0, (string)dataRow["flowerName"], (string)dataRow["color"], (float)price, (int)stock);
         }
 
         private Flower convertToFlower(DataRow dataRow)
         {
-            int id = (int)dataRow["flowerID"];
-            int fid = (int)dataRow["floristID"];
+            int fid = (int)dataRow["flowerID"];
+            int sid = (int)dataRow["shopID"];
             int stock = (int)dataRow["stock"];
             float price = (float)Convert.ToDouble(dataRow["price"]);
-            return new Flower((uint)id,(uint)fid, (string)dataRow["flowerName"], (string)dataRow["color"], (float)price, (int)stock, (string)dataRow["available"]);
+            return new Flower((uint)fid,(uint)sid, (string)dataRow["flowerName"], (string)dataRow["color"], (float)price, (int)stock);
         }
 
         public Flower SearchFlowerByName(string name)
         {
             try
             {
-                string searchSQL = "Select * from FlowerShop.dbo.Flowers where flowerName = '" + name + "'";
-                DataTable flowerTable = this.repository.GetTable(searchSQL);
-                if (flowerTable == null || flowerTable.Rows.Count == 0)
-                    return null;
-                DataRow dr = flowerTable.Rows[0];
-                return this.convertToFlower(dr);
-            }
-            catch (Exception)
-            {
-                return null;
-            }
-        }
-
-        public Flower SearchFlowerByNameEmployee(string name, uint floristID)
-        {
-            try
-            {
-                string searchSQL = "Select * from FlowerShop.dbo.Flowers where flowerName = '" + name + "'";
-                searchSQL += " and floristID = " + floristID;
+                string searchSQL = "Select * from FlowerShopMVVM.dbo.Flowers where flowerName = '" + name + "'";
                 DataTable flowerTable = this.repository.GetTable(searchSQL);
                 if (flowerTable == null || flowerTable.Rows.Count == 0)
                     return null;
@@ -313,7 +426,11 @@ namespace FlowerShopMVVM.Model.Repository
 
         public List<Flower> SearchFlowerByType(string type)
         {
-            string selectSQL = "Select * from Flowers where flowerName = '" + type + "'";
+            string selectSQL = "SELECT F.flowerID, F.flowerName, F.color, FS.price, FS.stock, S.shopID\n";
+            selectSQL += "FROM FlowerShopMVVM.dbo.Flowers AS F\n";
+            selectSQL += "JOIN FlowerShopMVVM.dbo.FlowersShop AS FS ON F.flowerID = FS.flowerID\n";
+            selectSQL += "JOIN FlowerShopMVVM.dbo.Shops AS S ON FS.shopID = S.shopID\n";
+            selectSQL += "WHERE F.flowerName = '" + type + "';";
             DataTable flowerTable = this.repository.GetTable(selectSQL);
             if (flowerTable == null || flowerTable.Rows.Count == 0)
                 return null;

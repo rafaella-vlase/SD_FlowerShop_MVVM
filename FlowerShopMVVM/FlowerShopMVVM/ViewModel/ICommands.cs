@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 
 namespace FlowerShopMVVM.ViewModel
 {
-    internal interface ICommands
+    public interface ICommands
     {
+        void Execute();
+        void Execute(int parameter);
+        void Execute(string parameter); 
     }
 }

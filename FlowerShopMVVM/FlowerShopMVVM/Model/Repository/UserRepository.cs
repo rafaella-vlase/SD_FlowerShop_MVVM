@@ -22,10 +22,19 @@ namespace FlowerShopMVVM.Model.Repository
 
         public bool AddUser(User user)
         {
-            string commandSQL = "insert into Users values('";
-            commandSQL += user.Username + "','" + user.Password + "','" + user.Role;
-            commandSQL += "', " + user.FloristID + ")";
-            return this.repository.CommandSQL(commandSQL);
+            if (user.Role == "Manager" || user.Role == "Administrator")
+            {
+                string commandSQL = "insert into Users values('";
+                commandSQL += user.Username + "','" + user.Password + "','" + user.Role;
+                commandSQL += "', " + "NULL" + ")";
+                return this.repository.CommandSQL(commandSQL);
+            } else
+            {
+                string commandSQL = "insert into Users values('";
+                commandSQL += user.Username + "','" + user.Password + "','" + user.Role;
+                commandSQL += "', " + user.ShopID + ")";
+                return this.repository.CommandSQL(commandSQL);
+            }
         }
 
         public bool LoginUser(string username, string password)
@@ -58,15 +67,15 @@ namespace FlowerShopMVVM.Model.Repository
             return "";
         }
 
-        public string GetFloristID(string username)
+        public string GetShopID(string username)
         {
-            string commandSQL = "SELECT floristID FROM [Users] WHERE username = '" + username + "'";
+            string commandSQL = "SELECT shopID FROM [Users] WHERE username = '" + username + "'";
             DataTable userTable = this.repository.GetTable(commandSQL);
 
             if(userTable != null || userTable.Rows.Count != 0)
             {
                 DataRow row = userTable.Rows[0];
-                return row["floristID"].ToString();
+                return row["shopID"].ToString();
             }
 
             return "";
@@ -81,12 +90,23 @@ namespace FlowerShopMVVM.Model.Repository
 
         public bool UpdateUser(User user)
         {
-            string commandSQL = "update [Users] set username = '";
-            commandSQL += user.Username + "', password = '" + user.Password;
-            commandSQL += "', role = '" + user.Role;
-            commandSQL += "', floristID = " + user.FloristID;
-            commandSQL += " where userID = " + user.UserID;
-            return this.repository.CommandSQL(commandSQL);
+            if (user.Role == "Manager" || user.Role == "Administrator")
+            {
+                string commandSQL = "update [Users] set username = '";
+                commandSQL += user.Username + "', password = '" + user.Password;
+                commandSQL += "', role = '" + user.Role;
+                commandSQL += "', shopID = " + "NULL";
+                commandSQL += " where userID = " + user.UserID;
+                return this.repository.CommandSQL(commandSQL);
+            } else
+            {
+                string commandSQL = "update [Users] set username = '";
+                commandSQL += user.Username + "', password = '" + user.Password;
+                commandSQL += "', role = '" + user.Role;
+                commandSQL += "', shopID = " + user.ShopID;
+                commandSQL += " where userID = " + user.UserID;
+                return this.repository.CommandSQL(commandSQL);
+            }
         }
 
         public DataTable UserTable()
@@ -161,11 +181,30 @@ namespace FlowerShopMVVM.Model.Repository
             return list;
         }
 
+        public List<User> SearchUserByRole(string role)
+        {
+            string selectSQL = "Select * from [Users] where role ='" + role + "'";
+            DataTable userTable = this.repository.GetTable(selectSQL);
+            if (userTable == null || userTable.Rows.Count == 0)
+                return null;
+            List<User> list = new List<User>();
+            foreach (DataRow dr in userTable.Rows)
+            {
+                User user = this.convertToUser(dr);
+                list.Add(user);
+            }
+            return list;
+        }
+
         private User convertToUser(DataRow dataRow)
         {
+            int shopID = -1;
             int id = (int)dataRow["userID"];
-            int floristID = (int)dataRow["floristID"];
-            return new User((uint)id, (string)dataRow["username"], (string)dataRow["password"], (string)dataRow["role"], (uint)floristID);
+            if (dataRow["shopID"] == DBNull.Value)
+                shopID = 1;
+            else
+                shopID = (int)dataRow["shopID"];
+            return new User((uint)id, (string)dataRow["username"], (string)dataRow["password"], (string)dataRow["role"], (uint)shopID);
         }
 
     }

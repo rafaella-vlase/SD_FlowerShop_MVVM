@@ -3,44 +3,40 @@ namespace FlowerShopMVVM.Model
     public class Flower
     {
         protected uint flowerID;
-        protected uint floristID;
-        protected string type;
+        protected uint shopID;
+        protected string flowerName;
         protected string color;
         protected float price;
         protected int stock;
-        protected string isAvailable;
 
         public Flower()
         {
             flowerID = 1;
-            floristID = 1;
+            shopID = 1;
             price = 15;
             stock = 20;
-            isAvailable = "yes";
             color = "Red";
-            type = "Rose";
+            flowerName = "Rose";
         }
 
-        public Flower(uint flowerID, uint floristID, string type, string color, float price, int stock, string isAvailable)
+        public Flower(uint flowerID, uint shopID, string flowerName, string color, float price, int stock)
         {
             this.flowerID = flowerID;
-            this.floristID = floristID;
+            this.shopID = shopID;
             this.price = price;
             this.stock = stock;
-            this.isAvailable = isAvailable;
             this.color = color;
-            this.type = type;
+            this.flowerName = flowerName;
         }
 
         public Flower(Flower flower)
         {
             flowerID = flower.flowerID;
-            floristID = flower.floristID;
+            shopID = flower.shopID;
             price = flower.price;
             stock = flower.stock;
-            isAvailable = flower.isAvailable;
             color = flower.color;
-            type = flower.type;
+            flowerName = flower.flowerName;
         }
 
         public uint FlowerID
@@ -49,10 +45,10 @@ namespace FlowerShopMVVM.Model
             set { flowerID = value; }
         }
 
-        public uint FloristID
+        public uint ShopID
         {
-            get { return floristID; }
-            set { floristID = value; }
+            get { return shopID; }
+            set { shopID = value; }
         }
 
         public float Price
@@ -67,33 +63,26 @@ namespace FlowerShopMVVM.Model
             set { stock = value; }
         }
 
-        public string IsAvailable
-        {
-            get { return isAvailable; }
-            set { isAvailable = value; }
-        }
-
         public string Color
         {
             get { return color; }
             set { color = value; }
         }
 
-        public string Type
+        public string FlowerName
         {
-            get { return type; }
-            set { type = value; }
+            get { return flowerName; }
+            set { flowerName = value; }
         }
 
         public override string ToString()
         {
-            string s = "Flower: " + type;
+            string s = "Flower: " + flowerName;
             s += "Flower ID: " + flowerID;
-            s += " Florist: " + floristID;
+            s += " Florist: " + shopID;
             s += " Color: " + color;
             s += " Price: " + price;
             s += " Stock = " + stock;
-            s += " Is Available? = " + isAvailable;
             return s;
         }
     }

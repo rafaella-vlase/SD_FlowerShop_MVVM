@@ -7,7 +7,7 @@ namespace FlowerShopMVVM.Model
         protected string username;
         protected string password;
         protected string role;
-        protected uint floristID;
+        protected uint shopID;
 
         public User()
         {
@@ -15,16 +15,16 @@ namespace FlowerShopMVVM.Model
             username = "ella";
             password = "stardew";
             role = "Administrator";
-            floristID = 0;
+            shopID = 0;
         }
 
-        public User(uint userID, string username, string password, string role, uint floristID)
+        public User(uint userID, string username, string password, string role, uint shopID)
         {
             this.userID = userID;
             this.username = username;
             this.password = password;
             this.role = role;
-            this.floristID = floristID;
+            this.shopID = shopID;
         }
 
         public User(User user)
@@ -33,7 +33,7 @@ namespace FlowerShopMVVM.Model
             username = user.username;
             password = user.password;
             role = user.role;
-            floristID = user.floristID;
+            shopID = user.shopID;
         }
 
         public uint UserID
@@ -60,10 +60,10 @@ namespace FlowerShopMVVM.Model
             set { role = value; }
         }
 
-        public uint FloristID
+        public uint ShopID
         {
-            get { return floristID; }
-            set { floristID = value; }
+            get { return shopID; }
+            set { shopID = value; }
         }
 
         public override string ToString()
@@ -71,7 +71,7 @@ namespace FlowerShopMVVM.Model
             string s = "Username: " + username;
             s += "\nPassword: " + password;
             s += "\nRole: " + role;
-            s += "\nFloristID: " + floristID;
+            s += "\nShopID: " + shopID;
             return s;
         }
     }
